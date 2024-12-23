@@ -7,7 +7,7 @@ services:
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: boot_social_network
+      POSTGRES_DB: book_network_api
       PGDATA: /var/lib/postgresql/data
     volumes:
       - postgres:/var/lib/postgresql/data
@@ -47,7 +47,7 @@ services:
     environment:
 
       - SPRING_PROFILES_ACTIVE: docker #active spring profile
-      - SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/boot_social_network
+      - SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/book_network_api
       - SPRING_DATASOURCE_USERNAME: root
       - SPRING_DATASOURCE_PASSWORD: root
       - SPRING_JPA_HIBERNATE_DDL_AUTO: none

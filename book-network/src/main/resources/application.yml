@@ -1,28 +1,17 @@
 server:
-  port: 8081
+  servlet:
+    context-path: /api/v1  # Base path for all API endpoints
+  port: 8088
 
 spring:
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/book_network_api  # Make sure this is correct and the DB exists
-    username: postgresql
-    password: Janina1.
+  profiles:
+    active: dev,test
+  servlet:
+    multipart:
+      max-file-size: 50MB  # Maximum file size for file uploads (optional)
 
-  jpa:
-    hibernate:
-      ddl-auto: none  # Set to 'none' to prevent automatic schema generation. You can change it to 'update' for dev environments
-    open-in-view: false  # Set too false to prevent lazy loading issues in views
-    show-sql: true  # Show SQL queries in the logs (optional)
-    show-format: true  # Format the SQL for better readability
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect  # PostgreSQL's dialect for Hibernate
-        temp:
-          use_jdbc_metadata_defaults: false
-
-  sql:
-    init:
-      mode: never  # Prevent Spring Boot from running schema initialization scripts at startup (optional)
+springdoc:
+  default-produces-media-type: application/json  # Default media type for Swagger API responses
 
   security:
     user:
