@@ -39,4 +39,14 @@ spring:
           timeout: 3000
           writetimeout: 5000
 
+  application:
+    security:
+      jwt:
+        secret-key: mXd104lCUWYoQqR8EU+z2lHHJUso3JRM8zoWcry4BUM=
+        expiration-time: 86400000  # 24 hours in milliseconds
+        token-prefix: Bearer
+        header-string: Authorization
+        sign-up-url: /api/v1/users/sign-up
+        login-url: /api/v1/users/login
+
 
