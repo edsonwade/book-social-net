@@ -1,0 +1,42 @@
+# Set the active profile to 'dev' for development
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver   # Set the driver class for PostgreSQL
+    url: jdbc:postgresql://localhost:5432/book_network_api  # Make sure this is correct and the DB exists
+    username: postgresql  # Set the username for the database
+    password: Janina1.    # Set the password for the database
+
+  jpa:
+    hibernate:
+      ddl-auto: none  # Set to 'none' to prevent automatic schema generation. You can change it to 'update' for dev environments
+    open-in-view: false  # Set too false to prevent lazy loading issues in views
+    show-sql: true  # Show SQL queries in the logs (optional)
+    properties:
+      hibernate:
+        temp:
+        use_jdbc_metadata_defaults: false
+      format_sql: true   # Format SQL queries in the logs (optional)
+    database: postgresql   # Set the database type to PostgreSQL
+    database-platform: org.hibernate.dialect.PostgreSQLDialect  # PostgreSQL's dialect for Hibernate
+
+  # Set the SQL initialization mode to 'never' to prevent Spring Boot from running schema initialization scripts at startup
+  sql:
+    init:
+      mode: never  # Prevent Spring Boot from running schema initialization scripts at startup (optional)
+
+  mail:
+    host: localhost
+    port: 1025
+    username: user  # You can leave this blank for FakeSMTP or MailHog
+    password: password  # Same for this
+    properties:
+      mail:
+        smtp:
+          trust: "*"
+          auth: false  # MailHog and FakeSMTP typically do not require authentication
+          starttls.enable: false  # Disable StartTLS for local SMTP servers like MailHog
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+
+
