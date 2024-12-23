@@ -1,0 +1,102 @@
+import java.util.HashMap;
+import java.util.Map;
+
+public class MostFrequentElement {
+    public static int findMostFrequent(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            throw new IllegalArgumentException("Array is empty or null");
+        }
+
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        int mostFrequentElement = arr[0];
+        int maxFrequency = 1;
+
+        for (int num : arr) {
+            if (frequencyMap.containsKey(num)) {
+                int newFrequency = frequencyMap.get(num) + 1;
+                frequencyMap.put(num, newFrequency);
+                if (newFrequency > maxFrequency) {
+                    maxFrequency = newFrequency;
+                    mostFrequentElement = num;
+                }
+            } else {
+                frequencyMap.put(num, 1);
+            }
+        }
+
+        return mostFrequentElement;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 2, 3, 3, 3, 4, 4, 4, 4};
+        int mostFrequent = findMostFrequent(arr);
+        System.out.println("Most frequent element: " + mostFrequent);
+    }
+}
+
+
+-- better solution
+
+public class MajorityElement {
+    public static int findMajorityElement(int[] arr) {
+        int majority = arr[0];
+        int count = 1;
+
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] == majority) {
+                count++;
+            } else if (count > 0) {
+                count--;
+            } else {
+                majority = arr[i];
+                count = 1;
+            }
+        }
+
+        return majority;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 2, 3, 3, 3, 4, 4, 4, 4};
+        int mostFrequent = findMajorityElement(arr);
+        System.out.println("Most frequent element: " + mostFrequent);
+    }
+}
+
+
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+public class MostFrequentElementUsingStreams {
+    public static int findMostFrequent(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            throw new IllegalArgumentException("Array is empty or null");
+        }
+
+        Map<Integer, Long> frequencyMap = Arrays.stream(arr)
+                .boxed()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        return frequencyMap.entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElseThrow();
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 2, 3, 3, 3, 4, 4, 4, 4};
+        int mostFrequent = findMostFrequent(arr);
+        System.out.println("Most frequent element: " + mostFrequent);
+    }
+}
+
+
+Solicitamos o cancelamento do pedido P1 28156895, conforme solicitado pelo requerente.
+Sendo que o mesmo já foi autorizado.
+obrigado
+
+Ao vosso cuidado.
+Obrigado.

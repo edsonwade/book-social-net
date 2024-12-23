@@ -1,0 +1,94 @@
+Certainly! Let's describe the Sequence Diagram and Use Case Diagram for the "Online Task Management System" project and provide an example for each.
+
+### Sequence Diagram:
+
+**Description:**
+A Sequence Diagram visualizes the interactions and sequence of messages exchanged between different objects and components in a system. In the context of your "Online Task Management System," we can create a Sequence Diagram to illustrate how a user creates a task.
+
+**Example Sequence Diagram:**
+In this example, we'll create a Sequence Diagram for the "Create Task" use case. The diagram shows the interaction between a user and the application's `TaskController` and `TaskService`.
+
+```plaintext
++------------------+           +------------------+           +------------------+
+|   User           |           |   TaskController  |           |   TaskService   |
++------------------+           +------------------+           +------------------+
+       |                           |                              |
+       | 1. Request to create a   |                              |
+       |    new task with details |                              |
+       |-------------------------->|                              |
+       |                           |                              |
+       |                           |                              |
+       |                           |                              |
+       | 2. Acknowledge request   |                              |
+       |    processing            |                              |
+       |<--------------------------|                              |
+       |                           |                              |
+       |                           |                              |
+       |                           |                              |
+       |                           | 3. Call to create task       |
+       |                           |----------------------------->|
+       |                           |                              |
+       |                           |                              |
+       |                           |                              |
+       |                           |                              |
+       |                           |                              |
+       |                           |                              |
+       |                           | 4. Acknowledge task creation  |
+       |                           |    success                   |
+       |                           |<-----------------------------|
+       |                           |                              |
+       |                           |                              |
+       |                           |                              |
+```
+
+In this Sequence Diagram, the user initiates the process by requesting the creation of a new task. The request is handled by the `TaskController`, which in turn communicates with the `TaskService` to create the task. Once the task is successfully created, an acknowledgment is sent back to the user.
+
+### Use Case Diagram:
+
+**Description:**
+A Use Case Diagram provides a high-level view of a system's functionalities and interactions with external actors. It describes the various use cases the system supports and how external actors interact with it.
+
+**Example Use Case Diagram:**
+In this example, we'll create a Use Case Diagram for the "Online Task Management System" to represent the main use cases and interactions.
+
+```plaintext
++-------------------+
+|     User          |
++-------------------+
+      |   |
+      |   |
+      | 1 | ------- (1) Log In
+      |   |
+      |   |
+      |   | ------- (2) Create Task
+      |   |
+      |   |
+      |   | ------- (3) Update Task
+      |   |
+      |   |
+      |   | ------- (4) View Task List
+      |   |
+      |   |
+      |   | ------- (5) Mark Task as Complete
+      |   |
+      |   |
+      |   | ------- (6) Log Out
+      |   |
+
++-------------------+
+|  Online Task      |
+|  Management System|
++-------------------+
+```
+
+In this Use Case Diagram:
+
+1. **User** interacts with the "Online Task Management System" to perform various use cases:
+   - (1) Log In
+   - (2) Create Task
+   - (3) Update Task
+   - (4) View Task List
+   - (5) Mark Task as Complete
+   - (6) Log Out
+
+The Use Case Diagram provides an overview of the system's functionalities and how users interact with it. This can be a starting point for further elaboration of use cases and their associated scenarios.

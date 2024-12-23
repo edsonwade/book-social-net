@@ -1,0 +1,36 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/book_network_api  # Make sure this is correct and the DB exists
+    username: postgresql
+    password: Janina1.
+
+  jpa:
+    hibernate:
+      ddl-auto: none  # Set to 'none' to prevent automatic schema generation. You can change it to 'update' for dev environments
+    open-in-view: false  # Set too false to prevent lazy loading issues in views
+    show-sql: true  # Show SQL queries in the logs (optional)
+    show-format: true  # Format the SQL for better readability
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect  # PostgreSQL's dialect for Hibernate
+        temp:
+          use_jdbc_metadata_defaults: false
+
+  sql:
+    init:
+      mode: never  # Prevent Spring Boot from running schema initialization scripts at startup (optional)
+
+  security:
+    user:
+      name: vani  # Username for HTTP basic authentication (optional)
+      password: 123  # Password for HTTP basic authentication (optional)
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: beans,loggers,metrics,health,info,readiness  # Expose specific Spring Boot Actuator endpoints for monitoring

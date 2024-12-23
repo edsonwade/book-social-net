@@ -1,0 +1,103 @@
+services:
+  postgres:
+    image: postgres
+    container_name: postgres-sql-bsn
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: boot_social_network
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - boot_social_network
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "user", "-d", "mydb" ]
+      interval: 30s
+      retries: 3
+      start_period: 5s
+      timeout: 10s
+  mail-dev:
+    container_name: mail-dev-bsn
+    image: maildev/maildev
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+    networks:
+      - boot_social_network
+
+
+  boot-social-network:
+    image: boot-social-network
+    container_name: boot-social-network
+    build:
+      context: .
+      dockerfile: /book-network/Dockerfile
+    ports:
+      - "8082:8082"
+      - "8083:8083"
+      - "8084:8084"
+    depends_on:
+      - postgres
+    networks:
+      - boot_social_network
+    environment:
+
+      - SPRING_PROFILES_ACTIVE: docker #active spring profile
+      - SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/boot_social_network
+      - SPRING_DATASOURCE_USERNAME: root
+      - SPRING_DATASOURCE_PASSWORD: root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO: none
+      - SPRING_JPA_SHOW_SQL: true
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+      - SPRING_SQL_INIT_MODE: never
+      - SPRING_SECURITY_USER_NAME: vani
+      - SPRING_SECURITY_USER_PASSWORD: 123
+      - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: beans,loggers,metrics,health,info,readiness
+    volumes:
+      - .:/book-network
+
+    # Prometheus
+    prometheus:
+      image: prom/prometheus:latest
+      container_name: prometheus
+      volumes:
+        - prometheus-data:/prometheus  # Volume for Prometheus data persistence
+        - ./prometheus.yml:/etc/prometheus/prometheus.yml  # Prometheus config
+      ports:
+        - "9090:9090"  # Expose port 9090 for Prometheus
+      networks:
+        - app-network
+
+    # Grafana
+    grafana:
+      image: grafana/grafana:latest
+      container_name: grafana
+      environment:
+        GF_SECURITY_ADMIN_PASSWORD: admin  # Default admin password for Grafana
+      ports:
+        - "3000:3000"  # Expose port 3000 for Grafana
+      networks:
+        - app-network
+      depends_on:
+        - prometheus
+      volumes:
+        - grafana-data:/var/lib/grafana  # Volume for Grafana data persistence
+
+networks:
+  boot_social_network:
+    driver: bridge  # Create a bridge network for service communication
+
+
+volumes:
+  postgres:
+    driver: local  # Volume for boot-social-network persistence
+  prometheus-data:
+    driver: local  # Volume for boot-social-network persistence
+  grafana-data:
+    driver: local  # Volume for boot-social-network persistence
+  boot-social-network:
+    driver: local  # Volume for boot-social-network persistence

@@ -1,0 +1,45 @@
+In your backend application for an online bookstore, you will need to define several entities, their attributes, and their data relationships to represent the core components of your system. Here are some of the key entities, their attributes, and data relationships:
+
+1. **Book Entity:**
+   - Attributes:
+     - `id` (unique identifier)
+     - `title`
+     - `author`
+     - `description`
+     - `price`
+     - `ISBN` (International Standard Book Number)
+   - Relationships:
+     - Many-to-Many with `User` for user favorites
+     - One-to-Many with `OrderItem` for book orders
+
+2. **User Entity:**
+   - Attributes:
+     - `id` (unique identifier)
+     - `username`
+     - `password` (hashed)
+     - `email`
+   - Relationships:
+     - Many-to-Many with `Book` for favorite books
+     - One-to-Many with `Order` for user orders
+
+3. **Order Entity:**
+   - Attributes:
+     - `id` (unique identifier)
+     - `orderDate`
+     - `status` (e.g., "Pending," "Shipped," "Delivered")
+   - Relationships:
+     - Many-to-One with `User` for the customer
+     - One-to-Many with `OrderItem` for items in the order
+
+4. **OrderItem Entity:**
+   - Attributes:
+     - `id` (unique identifier)
+     - `quantity`
+     - `subtotal` (price x quantity)
+   - Relationships:
+     - Many-to-One with `Order` for the order to which it belongs
+     - Many-to-One with `Book` for the book in the order item
+
+These entities and their relationships should provide the basis for managing books, users, user orders, and items within those orders. You can extend or modify these entities based on the specific requirements of your project. Additionally, you'll need to create corresponding database tables and configure the JPA relationships in your Spring Boot application to reflect these data structures.
+
+Remember to set up proper foreign key relationships and cascading operations in JPA to maintain data integrity and make it easier to work with these entities in your application.
