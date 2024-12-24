@@ -49,4 +49,10 @@ spring:
         sign-up-url: /api/v1/users/sign-up
         login-url: /api/v1/users/login
 
+    mailling:
+      frontend:
+        activation-url: http://localhost:4200/aactivate-account
+
+
+
 
